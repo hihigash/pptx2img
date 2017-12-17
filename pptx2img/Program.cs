@@ -4,6 +4,7 @@ using CommandLine;
 using CommandLine.Text;
 using Microsoft.Office.Core;
 using Microsoft.Office.Interop.PowerPoint;
+using Shape = Microsoft.Office.Interop.PowerPoint.Shape;
 
 namespace pptx2img
 {
@@ -49,7 +50,9 @@ namespace pptx2img
                 int i = 1;
                 foreach (Slide slide in presentation.Slides)
                 {
-                    var shape = slide.Shapes.Range(slide.Shapes.GetIndices()).Group();
+                    if (slide.Shapes.Count == 0) continue;
+
+                    var shape = (slide.Shapes.Count > 1) ? slide.Shapes.Range(slide.Shapes.GetIndices()).Group() : slide.Shapes[1];
                     shape.Export(Path.Combine(Path.GetFullPath(options.OutDir), $"{fileNameWithoutExtension}_{i}.png"), PpShapeFormat.ppShapeFormatPNG);
                     i++;
                 }
