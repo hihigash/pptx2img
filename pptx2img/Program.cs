@@ -4,7 +4,6 @@ using CommandLine;
 using CommandLine.Text;
 using Microsoft.Office.Core;
 using Microsoft.Office.Interop.PowerPoint;
-using Shape = Microsoft.Office.Interop.PowerPoint.Shape;
 
 namespace pptx2img
 {
